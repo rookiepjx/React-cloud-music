@@ -1,0 +1,1 @@
+export const CURRENT_SONG = "current_song"
