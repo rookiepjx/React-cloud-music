@@ -7,6 +7,8 @@ import Songs from "@/pages/discover/children/songs";
 import Radio from "@/pages/discover/children/radio";
 import Artist from "@/pages/discover/children/artist";
 import Album from "@/pages/discover/children/album";
+import Player from "@/pages/player";
+
 import { Redirect } from "react-router-dom";
 import React from "react";
 const routes = [
@@ -49,6 +51,10 @@ const routes = [
 			{
 				path: "/discover/album",
 				component: Album,
+			},
+			{
+				path: "/discover/player",
+				component: Player,
 			},
 		],
 	},

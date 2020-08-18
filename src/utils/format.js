@@ -18,10 +18,17 @@ export function playCountFormat(count) {
 export function getCurrentSongUrl(id) {
 	return `https://music.163.com/song/media/outer/url?id=${id}.mp3`;
 }
-
+/**
+ * RegExp.$1是RegExp的一个属性,指的是与正则表达式匹配的第一个 子匹配(以括号为标志)字符串，以此类推，RegExp.$2，RegExp.$3，..RegExp.$99总共可以有99个匹配
+ * const r = /^(\d{4})-(\d{1,2})-(\d{1,2})$/
+r.exec('2019-10-08')
+ 
+console.log(RegExp.$1)  // 2019
+console.log(RegExp.$2)  // 10
+console.log(RegExp.$3)  // 08
+ */
 export function formatDate(time, fmt) {
 	let date = new Date(time);
-
 	if (/(y+)/.test(fmt)) {
 		fmt = fmt.replace(
 			RegExp.$1,

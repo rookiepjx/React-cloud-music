@@ -175,6 +175,7 @@ export const OperationBar = styled.div`
 		}
 	}
 	.right {
+		position: relative;
 		width: 126px;
 		padding-left: 13px;
 		background-position: -147px -248px;
@@ -186,17 +187,43 @@ export const OperationBar = styled.div`
 		}
 
 		.loop {
-			background-position: -3px -344px;
+			background-position: ${(props) => {
+				switch (props.playMode) {
+					case 0:
+						return "-3px -344px";
+					case 1:
+						return "-66px -248px";
+					case 2:
+						return "-66px -344px";
+					default:
+						return "-3px -344px";
+				}
+			}};
 			&:hover {
-				background-position: -33px -344px;
+				background-position: ${(props) => {
+					switch (props.playMode) {
+						case 0:
+							return "-33px -344px";
+						case 1:
+							return "-93px -248px";
+						case 2:
+							return "-93px -344px";
+						default:
+							return "-33px -344px";
+					}
+				}};
 			}
 		}
 
 		.playlist {
+			position:absolute;
 			width: 59px;
 			background-position: -42px -68px;
 			&:hover {
 				background-position: -42px -98px;
+			}
+			a{
+				padding-left:15px;
 			}
 		}
 	}

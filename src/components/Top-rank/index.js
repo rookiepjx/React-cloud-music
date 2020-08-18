@@ -1,11 +1,21 @@
 import React, { memo } from "react";
+import { useDispatch } from "react-redux";
 
 import { TopRankWrapper } from "./style";
 import { getSizeImg } from "@/utils/format";
 
+import { getSongDetailAction } from "@/pages/player/store/actionCreators";
+
 export default memo(function TopRank(props) {
 	const { info } = props;
 	const { tracks = [] } = info;
+
+	const dispatch = useDispatch()
+
+	// 点击获取歌曲信息
+	const playMusic = (item) => {
+		dispatch(getSongDetailAction(item.id))
+	};
 	return (
 		<TopRankWrapper>
 			<div className="header">
@@ -35,7 +45,10 @@ export default memo(function TopRank(props) {
 									<a href="/todo">{item.name}</a>
 								</div>
 								<div className="operation">
-									<button className="btn play sprite_02"></button>
+									<button
+										className="btn play sprite_02"
+										onClick={(e) => playMusic(item)}
+									></button>
 									<button className="btn add sprite_icon2"></button>
 									<button className="btn favor sprite_02"></button>
 								</div>

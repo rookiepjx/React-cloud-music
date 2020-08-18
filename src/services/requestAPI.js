@@ -20,7 +20,7 @@ myAxios.interceptors.request.use(config => {
 
 // 拦截响应
 myAxios.interceptors.response.use(res => {
-  console.log("请求结果:",res.data)
+  // console.log("请求结果:",res.data)
   return res.data
 },err => {
   if (err & err.response) {
