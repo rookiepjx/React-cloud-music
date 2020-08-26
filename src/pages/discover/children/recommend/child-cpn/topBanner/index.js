@@ -28,7 +28,9 @@ export default memo(function TopBanner(props) {
 
 	const bannerRef = useRef();
 	const bannerChange = useCallback((from, to) => {
-		setCurrentIndex(to);
+		setTimeout(() => {
+			setCurrentIndex(to);
+		},0)
 	}, []);
 
 	// 当前轮播背景图url
@@ -42,7 +44,6 @@ export default memo(function TopBanner(props) {
 				<BannerLeft>
 					<Carousel
 						effect="fade"
-						slidesToScroll={2}
 						ref={bannerRef}
 						beforeChange={bannerChange}
 						autoplay
