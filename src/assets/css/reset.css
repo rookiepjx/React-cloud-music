@@ -147,3 +147,8 @@ body, textarea, select, input, button {
 	background: #ededed;
 	border-radius: 10px;
 }
+
+/* 轮播图下面的按钮遮挡了歌曲面板 */
+.ant-carousel .slick-dots{
+  z-index:0;
+}

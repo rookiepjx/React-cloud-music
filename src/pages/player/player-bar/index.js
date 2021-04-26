@@ -77,6 +77,8 @@ export default memo(function PlayerBar() {
 	const picUrl =
 		(currentSong.al && currentSong.al.picUrl) ||
 		"http://s4.music.126.net/style/web2/img/default/default_album.jpg";
+	// 背景图高斯模糊
+	// const bgImage = picUrl + "?imageView&blur=40x20";
 	const singerName = (currentSong.ar && currentSong.ar[0].name) || "未知歌手";
 	const duration = currentSong.dt || 0;
 
@@ -180,10 +182,10 @@ export default memo(function PlayerBar() {
 	};
 
 	// 改变歌曲音量
-	const volumeSliderChange = useCallback((value) => {
+	const volumeSliderChange = (value) => {
 		setvolume(value);
 		audioRef.current.volume = value / 100;
-	});
+	};
 
 	// 显示/隐藏歌曲面板
 	const toggleShowPanel = (e) => {
@@ -238,7 +240,7 @@ export default memo(function PlayerBar() {
 						<div className="progress">
 							<Slider
 								tooltipVisible={false}
-								step={0.1}
+								step={0.2}
 								defaultValue={0}
 								value={progress}
 								onChange={songSliderChange}
@@ -298,7 +300,7 @@ export default memo(function PlayerBar() {
 				onEnded={(e) => timeEnded()}
 			/>
 			{/* 歌曲面板显示/隐藏 */}
-			{showPanel && <PlayerBarPanel />}
+			{showPanel && <PlayerBarPanel/>}
 		</PlayerBarWrapper>
 	);
 });
