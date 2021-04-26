@@ -5,7 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Slider, message } from "antd";
 import { NavLink } from "react-router-dom";
 
-import { PlayerBarWrapper, ControlBar, PlayBar, OperationBar } from "./style";
+import {
+	PlayerBarWrapper,
+	ControlBar,
+	PlayBar,
+	OperationBar,
+	VolumeSlider,
+} from "./style";
+import PlayerBarPanel from "../player-bar-panel";
 import {
 	getSongDetailAction,
 	changePlayModeAction,
@@ -24,6 +31,9 @@ export default memo(function PlayerBar() {
 	const [currentTime, setcurrentTime] = useState(0); // 当前歌曲时间
 	const [progress, setprogress] = useState(0); // 当前进度
 	const [isChanging, setisChanging] = useState(false); // 是否在拖动进度条
+	const [showVolume, setshowVolume] = useState(false); // 是否显示音量条
+	const [volume, setvolume] = useState(30);
+	const [showPanel, setshowPanel] = useState(false); // 是否显示歌曲面板
 
 	// redux hooks
 	const {
@@ -45,11 +55,11 @@ export default memo(function PlayerBar() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(getSongDetailAction(1341919992));
+		dispatch(getSongDetailAction(1459232593));
 	}, [dispatch]);
 
-	// 根据id获取音频源,并且当切换歌曲的时候自动播放
 	useEffect(() => {
+		// 1.根据id获取音频源,并且当切换歌曲的时候自动播放
 		audioRef.current.src = getCurrentSongUrl(currentSong.id);
 		audioRef.current
 			.play()
@@ -59,9 +69,11 @@ export default memo(function PlayerBar() {
 			.catch(() => {
 				setisPlaying(false);
 			});
+		// 2.点击空白处隐藏音量、歌曲面板
+		document.addEventListener("click", hide);
 	}, [currentSong]);
 
-	// other
+	// others
 	const picUrl =
 		(currentSong.al && currentSong.al.picUrl) ||
 		"http://s4.music.126.net/style/web2/img/default/default_album.jpg";
@@ -81,9 +93,11 @@ export default memo(function PlayerBar() {
 	const timeUpdate = (e) => {
 		const currentTime = e.target.currentTime;
 		if (!isChanging) {
-			setcurrentTime(e.target.currentTime * 1000);
+			setcurrentTime(currentTime * 1000);
 			setprogress(((currentTime * 1000) / duration) * 100);
 		}
+
+		// 根据时间获取当前歌词
 		let i = 0;
 		for (; i < lyric.length - 1; i++) {
 			const lyricTime = lyric[i].time;
@@ -93,6 +107,7 @@ export default memo(function PlayerBar() {
 		}
 		const index = i - 1;
 		// 当变化时才修改index
+		// 根据歌词时间显示当前歌词
 		if (index !== currentLyricIndex) {
 			dispatch(changeCurrentLyricIndexAction(index));
 			let content = lyric[index] && lyric[index].content;
@@ -112,12 +127,13 @@ export default memo(function PlayerBar() {
 			audioRef.current.currentTime = 0;
 			audioRef.current.play();
 		} else {
+			audioRef.current.currentTime = 0;
 			dispatch(changeIndexAndSongAction(1));
 		}
 	};
 
 	// 拖动进度条，进度条状态改为 正在拖动 ，改变播放时间和进度条。
-	const sliderChange = useCallback(
+	const songSliderChange = useCallback(
 		(value) => {
 			setisChanging(true);
 			setcurrentTime((value / 100) * duration);
@@ -128,7 +144,7 @@ export default memo(function PlayerBar() {
 
 	// 松开进度条，改变音频的当前时间、当前时间、进度条，进度条状态改为 停止拖动
 	// 并当歌曲没有播放，开始播放歌曲
-	const sliderAfterChange = useCallback(
+	const songSliderAfterChange = useCallback(
 		(value) => {
 			const currentTime = ((value / 100) * duration) / 1000;
 			audioRef.current.currentTime = currentTime;
@@ -154,6 +170,32 @@ export default memo(function PlayerBar() {
 			currentPlayMode = 0;
 		}
 		dispatch(changePlayModeAction(currentPlayMode));
+	};
+
+	// 显示/隐藏音量条
+	const toggleShowVolume = (e) => {
+		setshowVolume(!showVolume);
+		// react中阻止事件冒泡和同元素上同类型（click）事件冒泡
+		e.nativeEvent.stopImmediatePropagation();
+	};
+
+	// 改变歌曲音量
+	const volumeSliderChange = useCallback((value) => {
+		setvolume(value);
+		audioRef.current.volume = value / 100;
+	});
+
+	// 显示/隐藏歌曲面板
+	const toggleShowPanel = (e) => {
+		setshowPanel(!showPanel);
+		// react中阻止事件冒泡和同元素上同类型（click）事件冒泡
+		e.nativeEvent.stopImmediatePropagation();
+	};
+
+	// 点击空白处隐藏元素
+	const hide = () => {
+		setshowPanel(false);
+		setshowVolume(false);
 	};
 
 	return (
@@ -199,8 +241,8 @@ export default memo(function PlayerBar() {
 								step={0.1}
 								defaultValue={0}
 								value={progress}
-								onChange={sliderChange}
-								onAfterChange={sliderAfterChange}
+								onChange={songSliderChange}
+								onAfterChange={songSliderAfterChange}
 							/>
 							<div className="time">
 								<span className="current-time">
@@ -220,14 +262,33 @@ export default memo(function PlayerBar() {
 						<button className="sprite_player btn share"></button>
 					</div>
 					<div className="right sprite_player">
-						<button className="sprite_player btn volume"></button>
+						<button
+							className="sprite_player btn volume"
+							onClick={(e) => toggleShowVolume(e)}
+						></button>
 						<button
 							className="sprite_player btn loop"
-							onClick={(e) => changePlayMode()}
+							onClick={() => changePlayMode()}
 						></button>
-						<button className="sprite_player btn playlist">
-							<a href="/todo">{playList.length}</a>
+						<button
+							className="sprite_player btn playlist"
+							onClick={(e) => toggleShowPanel(e)}
+						>
+							<span>{playList.length}</span>
 						</button>
+						{/* 音量面板显示/隐藏 */}
+						{showVolume && (
+							<VolumeSlider className="sprite_player">
+								<div className="volumeSlider">
+									<Slider
+										vertical
+										defaultValue={volume}
+										tooltipVisible={false}
+										onChange={volumeSliderChange}
+									></Slider>
+								</div>
+							</VolumeSlider>
+						)}
 					</div>
 				</OperationBar>
 			</div>
@@ -235,7 +296,9 @@ export default memo(function PlayerBar() {
 				ref={audioRef}
 				onTimeUpdate={(e) => timeUpdate(e)}
 				onEnded={(e) => timeEnded()}
-			></audio>
+			/>
+			{/* 歌曲面板显示/隐藏 */}
+			{showPanel && <PlayerBarPanel />}
 		</PlayerBarWrapper>
 	);
 });

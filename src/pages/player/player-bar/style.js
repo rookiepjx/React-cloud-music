@@ -10,7 +10,6 @@ export const PlayerBarWrapper = styled.div`
 	background-repeat: repeat;
 	.content {
 		display: flex;
-		/* justify-content: space-between; */
 		align-items: center;
 		height: 47px;
 		position: absolute;
@@ -18,14 +17,6 @@ export const PlayerBarWrapper = styled.div`
 		left: 50%;
 		transform: translateX(-50%);
 	}
-	/* .attach_bar{
-    position:absolute;
-    right:10px;
-    top:-8px;
-    width:65px;
-    height:15px;
-    background-position:0 -385px;
-  } */
 `;
 
 export const ControlBar = styled.div`
@@ -154,6 +145,7 @@ export const PlayBar = styled.div`
 `;
 
 export const OperationBar = styled.div`
+	margin-left: 20px;
 	display: flex;
 	align-items: center;
 	.btn {
@@ -216,14 +208,40 @@ export const OperationBar = styled.div`
 		}
 
 		.playlist {
-			position:absolute;
+			position: absolute;
 			width: 59px;
 			background-position: -42px -68px;
 			&:hover {
 				background-position: -42px -98px;
 			}
-			a{
-				padding-left:15px;
+			span {
+				padding-left: 15px;
+				color: #fff;
+			}
+		}
+	}
+`;
+
+export const VolumeSlider = styled.div`
+	position: absolute;
+	left: 6px;
+	bottom: 38px;
+	width: 32px;
+	height: 113px;
+	background-position: 0 -500px;
+	z-index: 1000;
+
+	.volumeSlider {
+		position: relative;
+		.ant-slider-vertical {
+			position: absolute;
+			bottom: -113px;
+			height: 94px;
+			.ant-slider-track {
+				background-color: #c70c0c;
+			}
+			.ant-slider-handle {
+				border-color: #c70c0c;
 			}
 		}
 	}

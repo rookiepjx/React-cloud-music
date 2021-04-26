@@ -71,7 +71,11 @@ export const changeIndexAndSongAction = (num) => {
 	};
 };
 
-// 获取歌曲信息
+
+
+// 以下是 中间件Actions
+
+// id获取歌曲信息
 export const getSongDetailAction = (ids) => {
 	return (dispatch, getState) => {
 		// 1.根据id查找playList中是否已经有这首歌
@@ -106,7 +110,7 @@ export const getSongDetailAction = (ids) => {
 	};
 };
 
-// 获取歌词
+// id获取歌词
 export const getLyricAction = (id) => {
 	return (dispatch) => {
 		getLyric(id).then((res) => {

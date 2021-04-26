@@ -27,13 +27,15 @@ export default memo(function TopBanner(props) {
 	}, [dispatch]);
 
 	const bannerRef = useRef();
+	// 当传递一个函数到一个组件中，使用useCallback缓存优化
 	const bannerChange = useCallback((from, to) => {
+		// 延后setCurrentIndex执行，
 		setTimeout(() => {
 			setCurrentIndex(to);
 		},0)
 	}, []);
 
-	// 当前轮播背景图url
+	// 当前轮播高斯模糊背景图url
 	const bgImage =
 		topBanners[currentIndex] &&
 		topBanners[currentIndex].imageUrl + "?imageView&blur=40x20";

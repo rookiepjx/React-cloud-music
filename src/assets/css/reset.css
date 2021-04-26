@@ -121,5 +121,29 @@ body, textarea, select, input, button {
   bottom: 60px;
   background-color: rgba(0, 0, 0, .5);
   color: #fff;
+  letter-spacing: 1px;
 }
 
+/* 降低轮播图的按钮层级 */
+.ant-carousel .slick-dots li button{
+  z-index:-1;
+}
+
+/* 滚动条整体 */
+::-webkit-scrollbar {
+	background: #efefef;
+	width: 8px;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+	width: 6px;
+	background: rgba(24, 28, 47, 0.4);
+	border-radius: 10px;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+/* 滚动条轨道 */
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+	background: #ededed;
+	border-radius: 10px;
+}

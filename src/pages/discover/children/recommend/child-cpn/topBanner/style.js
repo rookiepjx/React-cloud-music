@@ -1,7 +1,8 @@
 import styled from "styled-components";
 export const BannerWrapper = styled.div`
 	/* 根据参数动态改变毛玻璃背景*/
-	background: url(${(props) => props.bgImage}) center center/6000px;
+	/* 毛玻璃效果是在img的url后拼接 ?imageView&blur=40x20 */
+	background:url(${(props) => props.bgImage}) center center/6000px;
 
 	.banner {
 		height: 285px;
@@ -22,14 +23,6 @@ export const BannerLeft = styled.div`
 			height: 100%;
 			cursor: pointer;
 		}
-	}
-	.ant-carousel .slick-dots li button {
-    height: 8px;
-    position:absolute;
-    bottom:5px;
-    &:hover{
-      background-color:#C20C0C;
-    }
 	}
 `;
 
