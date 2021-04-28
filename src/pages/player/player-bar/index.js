@@ -77,8 +77,6 @@ export default memo(function PlayerBar() {
 	const picUrl =
 		(currentSong.al && currentSong.al.picUrl) ||
 		"http://s4.music.126.net/style/web2/img/default/default_album.jpg";
-	// 背景图高斯模糊
-	// const bgImage = picUrl + "?imageView&blur=40x20";
 	const singerName = (currentSong.ar && currentSong.ar[0].name) || "未知歌手";
 	const duration = currentSong.dt || 0;
 
@@ -300,7 +298,7 @@ export default memo(function PlayerBar() {
 				onEnded={(e) => timeEnded()}
 			/>
 			{/* 歌曲面板显示/隐藏 */}
-			{showPanel && <PlayerBarPanel/>}
+			{showPanel && <PlayerBarPanel bgImage={picUrl} />}
 		</PlayerBarWrapper>
 	);
 });

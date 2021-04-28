@@ -39,6 +39,11 @@ export const changePlayModeAction = (playMode) => ({
 	type: actionTypes.CHANGE_PLAY_MODE,
 	playMode,
 });
+
+
+
+// 以下是 使用redux-thunk中间件的Actions，中间件允许dispatch一个action函数，并传递dispatch, getState函数
+
 // 切换上一曲/下一曲
 export const changeIndexAndSongAction = (num) => {
 	return (dispatch, getState) => {
@@ -72,8 +77,6 @@ export const changeIndexAndSongAction = (num) => {
 };
 
 
-
-// 以下是 中间件Actions
 
 // id获取歌曲信息
 export const getSongDetailAction = (ids) => {
