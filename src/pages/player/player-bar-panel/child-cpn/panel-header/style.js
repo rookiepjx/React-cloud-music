@@ -12,11 +12,47 @@ export const HeaderLeft = styled.div`
 	display: flex;
 	justify-content: space-between;
 	width: 553px;
-	padding: 0 22px;
+	padding: 0 0 0 22px;
 
 	h3 {
 		color: #e2e2e2;
 		font-weight: 700;
+	}
+
+	.operators {
+		button {
+			background: transparent;
+			color: #9b9b9b;
+			cursor: pointer;
+		}
+		button:hover {
+			color: #e2e2e2;
+			.favor {
+				background-position: -24px -20px;
+			}
+
+			.remove {
+				background-position: -51px -20px;
+			}
+		}
+
+		.icon {
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			position: relative;
+			top: 4px;
+			right: 2px;
+		}
+
+		.favor {
+			background-position: -24px 0;
+		}
+
+		.remove {
+			background-position: -51px 0;
+			width: 13px;
+		}
 	}
 `;
 

@@ -1,9 +1,10 @@
 import React, { memo } from 'react'
+import {LyricPanelWrapper} from "./style"
 
 export default memo(function LyricPanel() {
   return (
-    <div>
-      
-    </div>
+    <LyricPanelWrapper>
+      Hello
+    </LyricPanelWrapper>
   )
 })

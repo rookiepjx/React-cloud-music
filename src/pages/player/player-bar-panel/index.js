@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useRef, useEffect } from "react";
 
 import { PlayerBarPanelWrapper } from "./style.js";
 import PanelHeader from "./child-cpn/panel-header";
@@ -7,14 +7,27 @@ import LyricPanel from "./child-cpn/lyric-panel";
 
 export default memo(function PlayerBarPanel(props) {
 	const { bgImage } = props;
+	// 阻止点击面板触发冒泡，面板隐藏
+	const Click = (e) => {
+		e.nativeEvent.stopImmediatePropagation();
+	};
+
+	const ref = useRef();
+	const prevent = (e) => {
+		e.preventDefault();
+	};
+	useEffect(() => {
+		ref.current.addEventListener("scroll", prevent, { passive: false });
+	}, []);
+
 	return (
-		<PlayerBarPanelWrapper>
+		<PlayerBarPanelWrapper ref={ref} onClick={(e) => Click(e)}>
 			<PanelHeader />
 			<div className="main">
 				<img src={bgImage} alt="" className="img" />
+				<SongsList />
+				<LyricPanel />
 			</div>
-			<SongsList />
-			<LyricPanel />
 		</PlayerBarPanelWrapper>
 	);
 });

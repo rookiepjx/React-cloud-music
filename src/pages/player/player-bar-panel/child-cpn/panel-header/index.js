@@ -15,6 +15,16 @@ export default memo(function PanelHeader() {
 		<PanelHeaderWrapper>
 			<HeaderLeft>
 				<h3>播放列表({playList.length})</h3>
+				<div className="operators">
+					<button>
+						<i className="playlist_sprite icon favor"></i>
+						收藏全部
+					</button>
+					<button>
+						<i className="playlist_sprite icon remove"></i>
+						清除
+					</button>
+				</div>
 			</HeaderLeft>
 			<HeaderRight>
 				{currentSong.name}
