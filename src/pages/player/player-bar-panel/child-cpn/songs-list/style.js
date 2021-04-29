@@ -6,7 +6,9 @@ export const SongsListWrapper = styled.div`
 	height: 262px;
 	padding: 0 0 2px 2px;
 	overflow-y: auto;
-  
+	/* 阻止滚动冒泡 */
+	overscroll-behavior: contain;
+
 	::-webkit-scrollbar {
 		background: #000;
 		width: 6px;
