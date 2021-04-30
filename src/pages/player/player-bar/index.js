@@ -34,6 +34,7 @@ export default memo(function PlayerBar() {
 	const [showVolume, setshowVolume] = useState(false); // 是否显示音量条
 	const [volume, setvolume] = useState(30);
 	const [showPanel, setshowPanel] = useState(false); // 是否显示歌曲面板
+	const [showLyrics, setshowLyrics] = useState(false); // 是否显示歌曲面板
 
 	// redux hooks
 	const {
@@ -112,12 +113,16 @@ export default memo(function PlayerBar() {
 			dispatch(changeCurrentLyricIndexAction(index));
 			let content = lyric[index] && lyric[index].content;
 			content = content ? content : "...";
-			message.open({
-				content: content,
-				key: "lyric",
-				duration: 0,
-				className: "lyric-message",
-			});
+			if (showLyrics) {
+				message.open({
+					content: content,
+					key: "lyric",
+					duration: 0,
+					className: "lyric-message",
+				});
+			} else {
+				message.destroy();
+			}
 		}
 	};
 
@@ -198,6 +203,11 @@ export default memo(function PlayerBar() {
 		setshowVolume(false);
 	};
 
+	// 切换歌词显示/隐藏
+	const toggleShowLyrics = () => {
+		setshowLyrics(!showLyrics);
+	};
+
 	return (
 		<PlayerBarWrapper className="sprite_player">
 			<div className="content wrap-v2">
@@ -259,7 +269,10 @@ export default memo(function PlayerBar() {
 				<OperationBar playMode={playMode}>
 					<div className="left">
 						<button className="sprite_player btn favor"></button>
-						<button className="sprite_player btn share"></button>
+						<button
+							className="sprite_player btn share"
+							onClick={() => toggleShowLyrics()}
+						></button>
 					</div>
 					<div className="right sprite_player">
 						<button

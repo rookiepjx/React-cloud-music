@@ -136,7 +136,7 @@ body, textarea, select, input, button {
 /* 滚动条整体 */
 ::-webkit-scrollbar {
 	background: #efefef;
-	width: 8px;
+	width: 6px;
 }
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
