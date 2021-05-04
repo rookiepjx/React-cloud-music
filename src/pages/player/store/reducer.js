@@ -13,8 +13,8 @@ const defaultState = Map({
    * 2 单曲循环
    */
   playMode:0, 
-  lyric:[],
-  currentLyricIndex:0
+  lyrics:[],
+  currentLyricsIndex:0
 });
 
 function reducer(state = defaultState,action){
@@ -27,10 +27,10 @@ function reducer(state = defaultState,action){
       return state.set("currentSongIndex", action.currentSongIndex);
     case actionTypes.CHANGE_PLAY_MODE:
       return state.set("playMode",action.playMode)
-    case actionTypes.CHANGE_LYRIC:
-      return state.set("lyric",action.lyric)
-    case actionTypes.CHANGE_CURRENT_LYRIC_INDEX:
-      return state.set("currentLyricIndex", action.currentLyricIndex);
+    case actionTypes.CHANGE_LYRICS:
+      return state.set("lyrics",action.lyrics)
+    case actionTypes.CHANGE_CURRENT_LYRICS_INDEX:
+      return state.set("currentLyricsIndex", action.currentLyricsIndex);
     default:
       return state;
   }

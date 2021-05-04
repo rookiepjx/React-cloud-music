@@ -9,12 +9,12 @@
  */
 const RegExp = /\[(\d{2}):(\d{2})\.(\d{2,3})\]/;
 
-export default function parseLyric(lyricString) {
-	let lyric = [];
+export default function parseLyrics(lyricsString) {
+	let lyrics = [];
 	// 歌词按行分割
-	const lyricLines = lyricString.split("\n");
+	const lyricsLines = lyricsString.split("\n");
 	// 遍历所有行，正则匹配出歌词时间和歌词内容
-	for (let line of lyricLines) {
+	for (let line of lyricsLines) {
 		// 如果不为空行
 		if (line) {
 			/**
@@ -37,11 +37,11 @@ export default function parseLyric(lyricString) {
 			const time = minute + second + milsecond;
 			// 将歌词字符串的 [时间] 剔除，就是歌词内容
 			const content = line.replace(RegExp, "").trim();
-			lyric.push({
+			lyrics.push({
 				time,
 				content
 			});
 		}
 	}
-	return lyric;
+	return lyrics;
 }

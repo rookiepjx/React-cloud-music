@@ -1,5 +1,6 @@
-import request from "./requestAPI"
+import request from "./requestAPI";
 
+// 获取歌曲详情
 export function getSongDetail(ids) {
 	return request({
 		url: "/song/detail",
@@ -9,7 +10,8 @@ export function getSongDetail(ids) {
 	});
 }
 
-export function getLyric(id) {
+// 获取歌词
+export function getLyrics(id) {
 	return request({
 		url: "/lyric",
 		params: {

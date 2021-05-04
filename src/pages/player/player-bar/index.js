@@ -17,7 +17,7 @@ import {
 	getSongDetailAction,
 	changePlayModeAction,
 	changeIndexAndSongAction,
-	changeCurrentLyricIndexAction,
+	changeCurrentLyricsIndexAction,
 } from "../store/actionCreators";
 import {
 	getSizeImg,
@@ -41,14 +41,14 @@ export default memo(function PlayerBar() {
 		currentSong,
 		playMode,
 		playList,
-		lyric,
-		currentLyricIndex,
+		lyrics,
+		currentLyricsIndex,
 	} = useSelector((state) => ({
 		currentSong: state.getIn(["player", "currentSong"]),
 		playMode: state.getIn(["player", "playMode"]),
 		playList: state.getIn(["player", "playList"]),
-		lyric: state.getIn(["player", "lyric"]),
-		currentLyricIndex: state.getIn(["player", "currentLyricIndex"]),
+		lyrics: state.getIn(["player", "lyrics"]),
+		currentLyricsIndex: state.getIn(["player", "currentLyricsIndex"]),
 	}));
 
 	// other hooks
@@ -100,25 +100,25 @@ export default memo(function PlayerBar() {
 
 		// 根据时间获取当前歌词
 		let i = 0;
-		for (; i < lyric.length - 1; i++) {
-			const lyricTime = lyric[i].time;
-			if (lyricTime > currentTime * 1000) {
+		for (; i < lyrics.length - 1; i++) {
+			const lyricsTime = lyrics[i].time;
+			if (lyricsTime > currentTime * 1000) {
 				break;
 			}
 		}
 		const index = i - 1;
 		// 当变化时才修改index
 		// 根据歌词时间显示当前歌词
-		if (index !== currentLyricIndex) {
-			dispatch(changeCurrentLyricIndexAction(index));
-			let content = lyric[index] && lyric[index].content;
+		if (index !== currentLyricsIndex) {
+			dispatch(changeCurrentLyricsIndexAction(index));
+			let content = lyrics[index] && lyrics[index].content;
 			content = content ? content : "...";
 			if (showLyrics) {
 				message.open({
 					content: content,
-					key: "lyric",
+					key: "lyrics",
 					duration: 0,
-					className: "lyric-message",
+					className: "lyrics-message",
 				});
 			} else {
 				message.destroy();

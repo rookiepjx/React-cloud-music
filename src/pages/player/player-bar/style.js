@@ -111,7 +111,8 @@ export const PlayBar = styled.div`
 
 				.ant-slider-rail {
 					height: 9px;
-					background: url(${require("@/assets/img/progress_bar.png")}) right 0;
+					background-color: #535353;
+					border-radius: 999px;
 				}
 
 				.ant-slider-track {

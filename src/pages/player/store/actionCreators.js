@@ -1,8 +1,8 @@
 import * as actionTypes from "./constants";
 
-import { getSongDetail, getLyric } from "@/services/player";
+import { getSongDetail, getLyrics } from "@/services/player";
 
-import parseLyric from "@/utils/parse-lyric";
+import parseLyrics from "@/utils/parse-lyrics";
 
 // 改变歌曲列表
 const changePlayListAction = (playList) => ({
@@ -23,24 +23,22 @@ const changeCurrentSongIndexAction = (currentSongIndex) => ({
 });
 
 // 改变歌曲歌词
-const changeLyricAction = (lyric) => ({
-	type: actionTypes.CHANGE_LYRIC,
-	lyric,
+const changeLyricsAction = (lyrics) => ({
+	type: actionTypes.CHANGE_LYRICS,
+	lyrics,
 });
 
 // 改变当前歌词下标
-export const changeCurrentLyricIndexAction = (currentLyricIndex) => ({
-	type:actionTypes.CHANGE_CURRENT_LYRIC_INDEX,
-	currentLyricIndex
-})
+export const changeCurrentLyricsIndexAction = (currentLyricsIndex) => ({
+	type: actionTypes.CHANGE_CURRENT_LYRICS_INDEX,
+	currentLyricsIndex,
+});
 
 // 改变播放模式
 export const changePlayModeAction = (playMode) => ({
 	type: actionTypes.CHANGE_PLAY_MODE,
 	playMode,
 });
-
-
 
 // 以下是 使用redux-thunk中间件的Actions，中间件允许dispatch一个action函数，并传递dispatch, getState函数
 
@@ -72,11 +70,9 @@ export const changeIndexAndSongAction = (num) => {
 		dispatch(changeCurrentSongAction(song));
 		dispatch(changeCurrentSongIndexAction(currentSongIndex));
 		// 获取歌词
-		dispatch(getLyricAction(song.id))
+		dispatch(getLyricsAction(song.id));
 	};
 };
-
-
 
 // id获取歌曲信息
 export const getSongDetailAction = (ids) => {
@@ -91,13 +87,13 @@ export const getSongDetailAction = (ids) => {
 			dispatch(changeCurrentSongAction(song));
 			dispatch(changeCurrentSongIndexAction(songIndex));
 			// 获取歌词
-			dispatch(getLyricAction(song.id));
+			dispatch(getLyricsAction(song.id));
 		} else {
 			// 2.2 playList中没有这首歌曲，请求歌曲数据添加到playList
 			getSongDetail(ids)
 				.then((res) => {
 					// 确保song有数据
-					if(!res) return 
+					if (!res) return;
 					song = res.songs && res.songs[0];
 					if (!song) return;
 					const newList = [...playList];
@@ -106,20 +102,20 @@ export const getSongDetailAction = (ids) => {
 					dispatch(changeCurrentSongIndexAction(newList.length - 1));
 					dispatch(changeCurrentSongAction(song));
 					// 获取歌词
-					dispatch(getLyricAction(song.id));
+					dispatch(getLyricsAction(song.id));
 				})
-				.catch( );
+				.catch();
 		}
 	};
 };
 
 // id获取歌词
-export const getLyricAction = (id) => {
+export const getLyricsAction = (id) => {
 	return (dispatch) => {
-		getLyric(id).then((res) => {
-			const lyricString = res.lrc.lyric;
-			const lyric = parseLyric(lyricString);
-			dispatch(changeLyricAction(lyric));
+		getLyrics(id).then((res) => {
+			const lyricsString = res.lrc.lyric;
+			const lyrics = parseLyrics(lyricsString);
+			dispatch(changeLyricsAction(lyrics));
 		});
 	};
 };
