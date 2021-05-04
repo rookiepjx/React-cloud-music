@@ -25,6 +25,12 @@ export default memo(function SongsList() {
 						})}
 					>
 						<div className="item_left">{item.name}</div>
+						<div className="item_center">
+							<div className="playlist_sprite favor"></div>
+							<div className="playlist_sprite share"></div>
+							<div className="playlist_sprite download"></div>
+							<div className="playlist_sprite delete"></div>
+						</div>
 						<div className="item_right">
 							<div className="singer">{item.ar[0].name}</div>
 							<div className="duration">{formatMinuteSecond(item.dt)}</div>

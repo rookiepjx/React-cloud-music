@@ -27,7 +27,7 @@ export default memo(function PanelHeader() {
 				</div>
 			</HeaderLeft>
 			<HeaderRight>
-				{currentSong.name}
+				<div className="songName">{currentSong.name}</div>
 				<div className="close"></div>
 			</HeaderRight>
 		</PanelHeaderWrapper>

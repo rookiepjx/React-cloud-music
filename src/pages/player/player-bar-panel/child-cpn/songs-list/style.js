@@ -53,12 +53,70 @@ export const SongsListWrapper = styled.div`
 			}
 		}
 
+		/* 歌名部分 */
+		.item_left {
+			width: 200px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		/* 歌曲操作部分 */
+		.item_center {
+			width: 100px;
+			display: flex;
+			justify-content: space-evenly;
+
+			.favor,
+			.share,
+			.download,
+			.delete {
+				width: 20px;
+				height: 20px;
+				line-height: 20px;
+				display: none;
+			}
+
+			.favor {
+				background-position: -22px 2px;
+				&:hover {
+					background-position: -22px -18px;
+				}
+			}
+
+			.share {
+				background-position: 4px 2px;
+				&:hover {
+					background-position: 4px -18px;
+				}
+			}
+
+			.download {
+				background-position: -55px -48px;
+				&:hover {
+					background-position: -78px -48px;
+				}
+			}
+			
+			.delete {
+				background-position: -50px 2px;
+				&:hover {
+					background-position: -50px -18px;
+				}
+			}
+		}
+
+		&:hover .item_center div {
+			display: block;
+		}
+
+		/* 歌曲信息部分 */
 		.item_right {
 			display: flex;
 			align-items: center;
 
 			.singer {
-				width: 100px;
+				width: 80px;
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;

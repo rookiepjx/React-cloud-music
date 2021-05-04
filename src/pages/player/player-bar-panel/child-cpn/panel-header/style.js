@@ -61,6 +61,15 @@ export const HeaderRight = styled.div`
 	text-align: center;
 	color: #fff;
 	font-size: 14px;
+	display: flex;
+	justify-content: center;
+
+	.songName {
+		width: 300px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 
 	.close::after {
 		position: absolute;
@@ -68,6 +77,6 @@ export const HeaderRight = styled.div`
 		right: 14px;
 		top: -2px;
 		transform: rotate(-45deg);
-    font-size:20px;
+		font-size: 20px;
 	}
 `;
