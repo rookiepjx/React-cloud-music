@@ -19,3 +19,13 @@ export function getLyrics(id) {
 		},
 	});
 }
+
+// 获取歌曲评论
+export function getComments(id) {
+	return request({
+		url: "/comment/music",
+		params: {
+			id,
+		},
+	});
+}
