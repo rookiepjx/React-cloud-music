@@ -14,14 +14,13 @@ export default memo(function SongInfo() {
 		}),
 		shallowEqual
 	);
-	console.log(currentSong);
 	// effect
+	const id = currentSong.id;
 	useEffect(() => {
-		getComments(currentSong.id).then((res) => {
-			console.log(res);
+		getComments(id).then((res) => {
 			setCommentsCount(res.total);
 		});
-	}, [currentSong]);
+	}, [id]);
 	// state
 	const [commentsCount, setCommentsCount] = useState(0);
 	const [expand, setExpand] = useState(false);

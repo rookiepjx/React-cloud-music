@@ -29,3 +29,23 @@ export function getComments(id) {
 		},
 	});
 }
+
+// 获取歌曲的相似歌单
+export function getSimilarPlaylist(id) {
+	return request({
+		url: "/simi/playlist",
+		params: {
+			id,
+		},
+	});
+}
+
+// 获取歌曲的相似歌曲
+export function getSimilarSongs(id) {
+	return request({
+		url: "/simi/song",
+		params: {
+			id,
+		},
+	});
+}
